@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.example.mnistapp'
+    compileSdk 34 // 使用较新的稳定 SDK 版本
+
+    defaultConfig {
+        applicationId "com.example.mnistapp"
+        minSdk 26 // TensorFlow Lite 要求最低 API 级别，26 通常是安全的
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // 需要这个来处理 TFLite 模型文件
+    aaptOptions {
+        noCompress "tflite"
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.13.1' // Core Kotlin extensions (即使我们主要用 Java，有些库可能需要)
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // TensorFlow Lite dependencies
+    // 我们将使用 Task Vision Library 来简化图像处理和推理
+    // implementation 'org.tensorflow:tensorflow-lite-task-vision:0.4.4' // 移除 Task Vision
+    // implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'    // 移除 Support 库
+    // implementation 'org.tensorflow:tensorflow-lite-gpu:2.15.0' // 暂时移除 GPU
+    implementation 'org.tensorflow:tensorflow-lite:2.17.0'        // 明确添加核心库 (最新稳定版)
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+} 

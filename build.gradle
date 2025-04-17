@@ -1,0 +1,15 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1' // 使用一个较新的稳定版本
+        // 注意：这里的版本号需要与你的 Gradle 版本兼容
+    }
+}
+
+tasks.register('clean', Delete) {
+    delete rootProject.buildDir
+} 
